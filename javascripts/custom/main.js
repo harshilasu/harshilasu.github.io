@@ -486,7 +486,7 @@ function initBGVimeo() {
                       //shows BG video only if .intro03 div is present
                         if( !device.tablet() && !device.mobile() ) {
                         /* plays the BG Vimeo or Youtube video if non-mobile device is detected*/ 
-                        $("body").okvideo({ source: 'ql3fq4QgTCA', //set your video source here
+                        $("body").okvideo({ source: '80xgYfSGCCI', //set your video source here
                                         autoplay:true,
                                         loop: true,
                                         highdef:true,
