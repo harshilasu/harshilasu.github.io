@@ -64,4 +64,4 @@ var videoMuted = true;
 // Set up the date and time that will be counted down to
 // Enter date in the format (24 hr clock): DD Month YYYY HH:MM:SS for example: 01 January 2015 23:04:00
 
-var countdownDate = "14 May 2016 18:00:00";
+var countdownDate = "19 May 2020 18:00:00";

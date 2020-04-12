@@ -2768,7 +2768,7 @@ var player, OKEvents, options;
 
     // load the youtube api
     base.loadYouTubeAPI = function (callback) {
-      base.insertJS('http://www.youtube.com/player_api');
+      base.insertJS('https://www.youtube.com/player_api');
     };
 
     base.loadYouTubePlaylist = function() {
