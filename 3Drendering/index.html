@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>3d-header/creating-scene</title>
+	<meta charset="UTF-8" />
+</head>
+
+<body>
+	<div id="app"></div>
+	<script src="./src/three.js">
+	</script>
+	<script src="https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/loaders/GLTFLoader.js"></script>
+	<script type="module">
+
+
+// Create Scene + Camera
+const mainScene = new THREE.Scene()
+
+const mainCamera = new THREE.PerspectiveCamera(
+  5,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  20
+)
+mainCamera.position.z = 10
+
+// Add Point Lights
+
+const backLight = new THREE.PointLight(0xFFFFFF, 5, 20)
+backLight.position.set(-5, 5, -5)
+mainScene.add(backLight)
+
+const fillLight = new THREE.PointLight(0xFFFFFF, 7, 20)
+fillLight.position.set(-5, 0, 5)
+mainScene.add(fillLight)
+
+const keyLight = new THREE.PointLight(0xFFFFFF, 5, 20)
+keyLight.position.set(5, 0, 0)
+mainScene.add(keyLight)
+
+// Create Renderer
+
+const renderer = new THREE.WebGLRenderer()
+renderer.setSize(window.innerWidth, window.innerHeight)
+document.getElementById('app').appendChild(renderer.domElement)
+
+// Load 3D Model
+
+const loader = new THREE.GLTFLoader()
+const modelFile = './src/HarshilBlender.glb'
+
+const modelContainer = new THREE.Group()
+mainScene.add(modelContainer)
+
+loader.load(
+  modelFile,
+  gltf => {
+    modelContainer.add(gltf.scene)
+  },
+  undefined,
+  console.error
+)
+
+// Handle Window Resize
+
+function resizeRenderer() {
+  renderer.setSize(window.innerWidth, window.innerHeight)
+  mainCamera.aspect = window.innerWidth / window.innerHeight
+  mainCamera.updateProjectionMatrix()
+}
+window.addEventListener('resize', resizeRenderer)
+
+// Mouse Move
+function mousemove(event) {
+ var mouse3D = new THREE.Vector3(
+        ( event.clientX / window.innerWidth ) * 2 - 1,
+        - ( event.clientY / window.innerHeight ) * 2 + 1,
+        0.5 );
+
+    modelContainer.lookAt(mouse3D); 
+}
+window.addEventListener('mousemove', mousemove)
+
+// Touch Move
+function touchmove(event) {
+	    event.preventDefault();
+ var mouse3D = new THREE.Vector3(
+        (event.touches[0].pageX / window.innerWidth ) * 2 - 1,
+        -(event.touches[0].pageY / window.innerHeight ) * 2 + 1,
+        0.5 );
+	modelContainer.lookAt(mouse3D); 
+}
+window.addEventListener('touchmove', touchmove)
+
+// Render Scene
+
+const clock = new THREE.Clock()
+
+function render() {
+  const delta = clock.getDelta()
+
+  
+  renderer.render(mainScene, mainCamera)
+  requestAnimationFrame(render)
+}
+render()
+
+	</script>
+</body>
+
+</html>
