@@ -84,7 +84,10 @@ window.addEventListener('mousemove', mousemove)
 
 // Touch Move
 function touchmove(event) {
-	    event.preventDefault();
+//Disable Scroll
+   document.getElementsByTagName('body')[0]. style .height = "100vh";
+   document.getElementsByTagName('body')[0]. style. overflow = "hidden";
+   
  var mouse3D = new THREE.Vector3(
         (event.touches[0].pageX / window.innerWidth ) * 2 - 1,
         -(event.touches[0].pageY / window.innerHeight ) * 2 + 1,
@@ -95,11 +98,7 @@ window.addEventListener('touchmove', touchmove)
 
 // Render Scene
 
-const clock = new THREE.Clock()
-
 function render() {
-  const delta = clock.getDelta()
-
   
   renderer.render(mainScene, mainCamera)
   requestAnimationFrame(render)
